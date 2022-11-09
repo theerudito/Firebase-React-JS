@@ -1,0 +1,90 @@
+html {
+  background: #181818;
+}
+
+.containerCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  margin-top: 20px;
+  background: #181818;
+
+  img {
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+  }
+}
+
+.containerButtonAdd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+
+  button {
+    width: 20%;
+    height: 100%;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+}
+
+.containerLogo {
+  width: 100%;
+  height: 100%;
+  img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    margin: auto;
+    display: flex;
+    cursor: pointer;
+  }
+}
+
+.containterButtonUpload {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.containerActions {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+
+  button {
+    width: 100%;
+  }
+}
+
+.containerImageCharacter {
+  width: 30%;
+  height: 20%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    margin: auto;
+    display: flex;
+    cursor: pointer;
+  }
+}
