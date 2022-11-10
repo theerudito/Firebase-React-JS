@@ -92,15 +92,11 @@ export const Modal_Component_Edit = ({
   character,
   setCharacter,
   editCharacter,
+  handleChangeImageEdit,
+  changeImageEdit,
+  prewImage,
+  changeImage,
 }) => {
-  const [image, setImage] = useState("");
-  const [changeImage, setChangeImage] = useState(false);
-
-  // const handleChange = (e) => {
-  //   setChangeImage(true);
-  //   setImage((images) => [...images, URL.createObjectURL(e.files[0])]);
-  //   return URL.revokeObjectURL(e.files[0]);
-  // };
   return (
     <>
       <Modal show={showME} onHide={handleCloseME}>
@@ -109,14 +105,19 @@ export const Modal_Component_Edit = ({
         </Modal.Header>
 
         <div className="containerImageCharacter">
-          <img src={character.image} alt="Logo" className="imageCharacter" />
+          <img
+            src={changeImage == false ? character.image : prewImage}
+            alt="Logo"
+            className="imageCharacter"
+          />
         </div>
 
         <div className="containterButtonUpload">
           <input
             className="btn btn-warning"
             type="file"
-            //onChange={(e) => handleChange(e.target)}
+            onChange={handleChangeImageEdit}
+            onClick={changeImageEdit}
           />
         </div>
 

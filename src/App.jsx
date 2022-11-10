@@ -120,16 +120,40 @@ function App() {
     setDataCharacter(item);
   };
 
+  const changeImageEdit = (e) => {
+    setChangeImage(true);
+  };
+
   const editCharacter = async () => {
     const idCharacter = dataCharacter.id;
+    if (changeImage === true) {
+      const imageRef = ref(bucketFirebase, generateID);
+      uploadBytes(imageRef, imageUpLoad).then((snapshot) => {
+        console.log("Uploaded complete!");
+        getDownloadURL(imageRef).then(async (url) => {
+          new Promise((resolve, reject) => {
+            const imageRef = ref(bucketFirebase, `${dataCharacter.refImage}`);
+            deleteObject(imageRef);
+            resolve(
+              setDoc(doc(dataFirebase, idCharacter), {
+                name: character.name,
+                clan: character.clan,
+                age: character.age,
+                refImage: generateID,
+                image: url,
+              })
+            );
+            handleCloseME();
+            setCharacter(character);
+            fetchData();
+          });
+        });
+      });
+    } else {
+      console.log("no se cambio la imagen");
+    }
+
     // updata data firebase
-    await setDoc(doc(dataFirebase, idCharacter), {
-      name: character.name,
-      clan: character.clan,
-      age: character.age,
-      refImage: generateID,
-      image: dataCharacter.image,
-    });
 
     handleCloseME();
     setCharacter({
@@ -137,8 +161,6 @@ function App() {
       clan: "",
       age: "",
     });
-
-    fetchData();
   };
   // EDIT CHARACTER AND IMAGE FROM FIREBASE ===================================
 
@@ -166,6 +188,30 @@ function App() {
     }
   };
   // PREVIEW IMAGE ============================================================
+
+  const handleChangeImageEdit = (e) => {
+    const selectedImage = e.target.files[0];
+
+    const ALLOWED_TYPES = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/gif",
+      "image/svg+xml",
+      "image/webp",
+    ];
+    if (selectedImage && ALLOWED_TYPES.includes(selectedImage.type)) {
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUpLoad(selectedImage);
+        setChangeImage(true);
+        setprewImage(reader.result);
+      };
+      reader.readAsDataURL(selectedImage);
+    } else {
+      alert("file not supported");
+    }
+  };
 
   return (
     <div className="App">
@@ -210,7 +256,6 @@ function App() {
         setCharacter={setCharacter}
         character={character}
         addCharacter={addCharacter}
-        editCharacter={editCharacter}
         imageUpLoad={imageUpLoad}
         changeImage={changeImage}
         handleChangeImage={handleChangeImage}
@@ -226,6 +271,10 @@ function App() {
         addCharacter={addCharacter}
         editCharacter={editCharacter}
         dataCharacter={dataCharacter}
+        handleChangeImageEdit={handleChangeImageEdit}
+        changeImageEdit={changeImageEdit}
+        prewImage={prewImage}
+        changeImage={changeImage}
       />
     </div>
   );
