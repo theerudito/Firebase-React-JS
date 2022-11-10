@@ -163,14 +163,6 @@ function App() {
       fetchData();
     }
 
-    // updata data firebase
-
-    handleCloseME();
-    setCharacter({
-      name: "",
-      clan: "",
-      age: "",
-    });
   };
   // EDIT CHARACTER AND IMAGE FROM FIREBASE ===================================
 
