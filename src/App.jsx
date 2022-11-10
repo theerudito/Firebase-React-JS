@@ -150,7 +150,17 @@ function App() {
         });
       });
     } else {
-      console.log("no se cambio la imagen");
+      const userDoc = doc(dataFirebase, idCharacter);
+      await setDoc(userDoc, {
+        name: character.name,
+        clan: character.clan,
+        age: character.age,
+        refImage: dataCharacter.refImage,
+        image: dataCharacter.image,
+      });
+      handleCloseME();
+      setCharacter(character);
+      fetchData();
     }
 
     // updata data firebase
